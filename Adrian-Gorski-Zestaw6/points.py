@@ -4,13 +4,12 @@ class Point:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.s = self.s = "("+ str(self.x) + "," + str(self.y)+")"
-    
+        
     def __str__(self):
-        return self.s
+        return "("+ str(self.x) + "," + str(self.y)+")"
     
     def __repr__(self):
-        return "Point"+self.s
+        return "Point"+"("+ str(self.x) + "," + str(self.y)+")"
 
     def __eq__(self, other):
         if(self.x == other.x and self.y == other.y):
@@ -19,7 +18,7 @@ class Point:
             return False
 
     def __ne__(self, other):
-        return not self.__eq__(other)
+        return not self==other
     
     def __add__(self, other):
         return Point(self.x + other.x, self.y + other.y)
@@ -54,29 +53,29 @@ class TestPoint(unittest.TestCase):
         self.assertEqual(Point(0,-2).__repr__(), "Point(0,-2)")
 
     def test_eq_point(self): 
-        self.assertEqual(Point(1,2).__eq__(Point(1,2)), True)
-        self.assertEqual(Point(1,2).__eq__(Point(2,5)), False)
-        self.assertEqual(Point(0,0).__eq__(Point(6,-5)), False)
+        self.assertEqual(Point(1,2)==(Point(1,2)), True)
+        self.assertEqual(Point(1,2)==(Point(2,5)), False)
+        self.assertEqual(Point(0,0)==(Point(6,-5)), False)
 
     def test_ne_point(self):
-        self.assertEqual(Point(1,2).__ne__(Point(1,2)), False)
-        self.assertEqual(Point(1,2).__ne__(Point(2,5)), True)
-        self.assertEqual(Point(0,0).__ne__(Point(6,-5)), True)
+        self.assertEqual(Point(1,2)!=(Point(1,2)), False)
+        self.assertEqual(Point(1,2)!=(Point(2,5)), True)
+        self.assertEqual(Point(0,0)!=(Point(6,-5)), True)
 
     def test_add_point(self): 
-        self.assertEqual( Point(1,2).__add__(Point(1,2)), Point(2,4) )
-        self.assertEqual( Point(1,2).__add__(Point(0,0)), Point(1,2) )
-        self.assertEqual( Point(12,56).__add__(Point(-12,-122)), Point(0,-66) )
+        self.assertEqual( Point(1,2)+(Point(1,2)), Point(2,4) )
+        self.assertEqual( Point(1,2)+(Point(0,0)), Point(1,2) )
+        self.assertEqual( Point(12,56)+(Point(-12,-122)), Point(0,-66) )
 
     def test_sub_point(self): 
-        self.assertEqual( Point(1,2).__sub__(Point(1,2)), Point(0,0) )
-        self.assertEqual( Point(1,2).__sub__(Point(0,0)), Point(1,2) )
-        self.assertEqual( Point(12,56).__sub__(Point(-12,-122)), Point(24,178) )
+        self.assertEqual( Point(1,2)-(Point(1,2)), Point(0,0) )
+        self.assertEqual( Point(1,2)-(Point(0,0)), Point(1,2) )
+        self.assertEqual( Point(12,56)-(Point(-12,-122)), Point(24,178) )
 
     def test_mul_point(self): 
-        self.assertEqual( Point(1,2).__mul__(Point(12,2)), 16 )
-        self.assertEqual( Point(12,51).__mul__(Point(2,0)), 24 )
-        self.assertEqual( Point(-14,-2).__mul__(Point(24,-14)), -308 )        
+        self.assertEqual( Point(1,2)*(Point(12,2)), 16 )
+        self.assertEqual( Point(12,51)*(Point(2,0)), 24 )
+        self.assertEqual( Point(-14,-2)*(Point(24,-14)), -308 )        
 
     def test_cross_point(self): 
         self.assertEqual( Point(1,2).cross(Point(12,2)), -22 )
