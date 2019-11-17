@@ -17,12 +17,12 @@ class Rectangle:
             (self.pt1.x, self.pt1.y, self.pt2.x, self.pt2.y)
 
     def __eq__(self, other):   
-        return self.pt1.__eq__(other.pt1) and\
-         self.pt2.__eq__(other.pt2)
+        return self.pt1==other.pt1 and\
+         self.pt2==other.pt2
 
     def __ne__(self, other):
-        return self.pt1.__ne__(other.pt1) or\
-         self.pt2.__ne__(other.pt2)
+        return self.pt1!=other.pt1 or\
+         self.pt2!=other.pt2
 
     def center(self):
 
@@ -57,14 +57,14 @@ class TestPoint(unittest.TestCase):
         self.assertEqual( Rectangle(-12,16,22,0).__repr__(), "Rectangle(-12,16,22,0)" )
 
     def test_eq_rectangle(self):
-        self.assertEqual( Rectangle(0,0,1,1).__eq__(Rectangle(0,0,1,1)), True )
-        self.assertEqual( Rectangle(5,6,7,8).__eq__(Rectangle(5,6,7,8)), True )
-        self.assertEqual( Rectangle(-2,2,18,4).__eq__(Rectangle(5,-4,1,6)), False )
+        self.assertEqual( Rectangle(0,0,1,1)==(Rectangle(0,0,1,1)), True )
+        self.assertEqual( Rectangle(5,6,7,8)==(Rectangle(5,6,7,8)), True )
+        self.assertEqual( Rectangle(-2,2,18,4)==(Rectangle(5,-4,1,6)), False )
 
     def test_ne_rectangle(self):
-        self.assertEqual( Rectangle(0,0,1,1).__ne__(Rectangle(0,0,1,1)), False )
-        self.assertEqual( Rectangle(5,6,7,8).__ne__(Rectangle(5,6,7,8)), False )
-        self.assertEqual( Rectangle(-2,2,18,4).__ne__(Rectangle(5,-4,1,6)), True )
+        self.assertEqual( Rectangle(0,0,1,1)!=(Rectangle(0,0,1,1)), False )
+        self.assertEqual( Rectangle(5,6,7,8)!=(Rectangle(5,6,7,8)), False )
+        self.assertEqual( Rectangle(-2,2,18,4)!=(Rectangle(5,-4,1,6)), True )
 
     def test_center_rectangle(self):
         self.assertEqual( Rectangle(0,0,1,1).center(), Point(0.5,0.5) )
