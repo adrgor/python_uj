@@ -8,42 +8,30 @@ class QueueError:
 
 class RandomQueue:
 
-    def __init__(self, size=5):
-        self.n = size + 1         # faktyczny rozmiar tablicy
-        self.items = self.n * [None] 
-        self.head = 0           # pierwszy do pobrania 
-        self.tail = 0           # pierwsze wolne
+    def __init__(self):
+        self.items = []
 
     def is_empty(self):
-        return self.head == self.tail
+        return not self.items
 
-    def is_full(self):
-        return (self.head + self.n-1) % self.n == self.tail
+    def is_full(self):             # nigdy nie jest pelna
+        return False
 
     def insert(self, data):
-        if self.is_full():
-            raise QueueError("Pelna kolejka")
-        self.items[self.tail] = data
-        self.tail = (self.tail + 1) % self.n
+        self.items.append(data)
+
+    def size(self):
+        return len(self.items)
 
     def remove(self):
-        if self.is_empty():
-            raise QueueError("Pusta kolejka")
-        r = random.randint(self.head,self.tail-1)
-        head_value = self.items[self.head]
-        self.items[self.head] = self.items[r]
-        self.items[r] = head_value
-        return self.__get()
-
-    def __get(self):
-        data = self.items[self.head]
-        self.items[self.head] = None      # usuwam referencje
-        self.head = (self.head + 1) % self.n
-        return data
+        if(len(self.items) > 1):
+            r = random.randrange( len(self.items)-1)
+            self.items[r], self.items[len(self.items)-1] = self.items[len(self.items)-1], self.items[r]
+            return self.items.pop()
+        else: return self.items.pop()
 
     def clear(self):
-        self.head = 0
-        self.tail = 0
+        self.items = []
 
 q = RandomQueue()
 
@@ -52,15 +40,16 @@ q.insert(2)
 q.insert(3)
 q.insert(4)
 q.insert(5)
+q.insert(6)
 
 print q.remove()
 print q.remove()
 print q.remove()
 print q.remove()
-
-print q.is_empty()
-
 print q.remove()
 
 print q.is_empty()
 
+print q.remove()
+
+print q.is_empty()
